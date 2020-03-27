@@ -1,0 +1,93 @@
+package aditya;
+
+import static io.restassured.RestAssured.given;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+
+public class resttest {
+	
+@Test(enabled=false)
+public void Meesho1() {
+	
+	RestAssured.baseURI="http://18.136.83.164:8001/v1";
+ 
+	given().header("merchantSecret", "test123").header("merchantId","supply").header("Postman-Token","83095421-62cf-4e5b-9d69-d7890dd09c66,10171d8c-de21-4ba0-ac67-03ade4ce0d76").header("cache-control", "no-cache,no-cache").when().get("/variations/fetch/2").then().assertThat()
+			.statusCode(200).and().contentType(ContentType.JSON);
+	
+	
+	
+}
+@Test(enabled=false)
+public void Meesho2_createoffer1() {
+RestAssured.baseURI = "http://13.250.53.173:8004";
+Response response = RestAssured.given().header("Authentication", "test123").header("Postman-Token","8a179bcd-15a8-49ba-bb41-a4687530ed43").header("cache-control", "no-cache,no-cache").header("Content-Type","application/json")
+		.body("[{\r\n" + 
+				"      \"name\": \"Christmas Offer To validate The Response\",\r\n" + 
+				"      \"type\": \"CUSTOM\",\r\n" + 
+				"      \"discountType\": \"PERCENTAGE\",\r\n" + 
+				"      \"discountValue\": 30,\r\n" + 
+				"      \"maxDiscount\": 150,\r\n" + 
+				"      \"priority\": 14,\r\n" + 
+				"      \"maxApplyCount\": 2,\r\n" + 
+				"      \"expiryDays\": 3,\r\n" + 
+				"      \"extendedExpiryDays\": 2,\r\n" + 
+				"      \"scope\": \"USER_GROUP\",\r\n" + 
+				"      \"status\": \"ACTIVE\",\r\n" + 
+				"      \"showTime\": true,\r\n" + 
+				"      \"showBanner\": true,\r\n" + 
+				"      \"sendNotification\": false\r\n" + 
+				"   }]")
+		.when().post("/v1/offers/create");
+response.getStatusCode();
+response.prettyPrint();
+String ser = response.getHeader("Authentication");
+System.out.println(ser);
+response.statusCode();
+
+} 
+@Test(enabled=true)
+public void Meesho3_createoffer2() {
+RestAssured.baseURI = "http://13.250.53.173:8004";
+Response response = RestAssured.given().header("Authentication", "test123").header("Postman-Token","8a179bcd-15a8-49ba-bb41-a4687530ed43").header("cache-control", "no-cache,no-cache").header("Content-Type","application/json")
+		.body("[{\r\n" + 
+				"		\"name\": \"New Year Offer To Validate The Response\",\r\n" + 
+				"		\"type\": \"CUSTOM\",\r\n" + 
+				"		\"discountType\": \"PERCENTAGE\",\r\n" + 
+				"		\"discountValue\": 30,\r\n" + 
+				"		\"maxDiscount\": 150,\r\n" + 
+				"		\"priority\": 14,\r\n" + 
+				"		\"maxApplyCount\": 2,\r\n" + 
+				"		\"expiryDays\": 3,\r\n" + 
+				"		\"extendedExpiryDays\": 2,\r\n" + 
+				"		\"scope\": \"USER_GROUP\",\r\n" + 
+				"		\"status\": \"ACTIVE\",\r\n" + 
+				"		\"showTime\": true,\r\n" + 
+				"		\"showBanner\": true,\r\n" + 
+				"		\"sendNotification\": false\r\n" + 
+				"	}]")
+		.when().post("/v1/offers/create");
+String resstr=response.asString();
+System.out.println(response.asString());
+JsonPath js=new JsonPath(resstr);
+String data=js.get("data");
+System.out.println(data);
+}
+@Test(enabled=false)
+public void Meesho2_assignoffer() {
+RestAssured.baseURI = "";
+Response response = RestAssured.given().header("Authentication", "test123").header("Postman-Token","9431087b-cdf8-4e05-80a3-942489278eb1").header("cache-control", "no-cache,no-cache").header("Content-Type","application/json")
+		.body("{\r\n" + 
+				"\"offer_id\" : ,\r\n" + 
+				"\"requests\" : [{\"user_id\" :3109778,\"start_date\" : \"2019-11-15 00:00:00\"}],\r\n" + 
+				"\"activate\" : true\r\n" + 
+				"}")
+		.when().post("");
+response.getStatusCode();
+response.prettyPrint();
+
+}
+}
